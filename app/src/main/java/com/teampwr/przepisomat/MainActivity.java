@@ -1,4 +1,4 @@
-package com.teampwr.przepisomat;
+/*package com.teampwr.przepisomat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,4 +11,4 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-}
+}*/

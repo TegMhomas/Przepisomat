@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#3CBA71"
     tools:context=".LoginActivity">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -25,7 +26,8 @@
             style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Type your Email"
+            android:background="#FFFF"
+            android:hint="Wpisz e-mail"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -49,7 +51,8 @@
             style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Type Your Password"
+            android:background="#FFFF"
+            android:hint="Wpisz hasło"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,25 +61,33 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:background="@color/yellow"
-        android:text="Sign In"
-        android:textColor="@color/black"
+        android:background="#2780E9"
+        android:text="Zaloguj"
+        android:textColor="#FFFF"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordLayout"
+        app:layout_constraintVertical_bias="0.516" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="Not Registered Yet , Sign Up !"
+        android:text="Nie masz konta? Zarejestruj się!"
+        android:textColor="#FFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="381dp"
+        android:layout_height="116dp"
+        app:srcCompat="@drawable/_36f5656c65f540ff8c6d9bfa77af76ba_transformed__1__2"
+        tools:layout_editor_absoluteX="14dp"
+        tools:layout_editor_absoluteY="55dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

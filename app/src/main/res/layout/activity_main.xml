@@ -5,4 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3CBA71"
-    tools:context=".MainActivity"/>
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="133dp"
+        android:layout_height="77dp"
+        android:layout_marginStart="158dp"
+        android:layout_marginTop="258dp"
+        android:layout_marginEnd="159dp"
+        android:layout_marginBottom="353dp"
+        android:fontFamily="sans-serif"
+        android:text="Wyloguj"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

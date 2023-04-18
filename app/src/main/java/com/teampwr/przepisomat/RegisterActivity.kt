@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
 import com.teampwr.przepisomat.databinding.ActivityRegisterBinding
 
@@ -14,7 +15,8 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         firebaseAuth = FirebaseAuth.getInstance()
 
         binding.textView.setOnClickListener {
@@ -26,11 +28,12 @@ class RegisterActivity : AppCompatActivity() {
             val pass = binding.passET.text.toString()
             val confirmPass = binding.confirmPassEt.text.toString()
 
-            if (email == "" && pass == "" && confirmPass == "") {
+            if (email != "" && pass != "" && confirmPass != "") {
                 if (pass == confirmPass) {
 
                     firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
                         if (it.isSuccessful) {
+                            Toast.makeText(this, "Pomyślnie zarejestrowano.", Toast.LENGTH_SHORT).show()
                             val intent = Intent(this, LoginActivity::class.java)
                             startActivity(intent)
                         } else {

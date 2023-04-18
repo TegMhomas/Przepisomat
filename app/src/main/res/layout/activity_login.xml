@@ -83,11 +83,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="381dp"
-        android:layout_height="116dp"
-        app:srcCompat="@drawable/_36f5656c65f540ff8c6d9bfa77af76ba_transformed__1__2"
-        tools:layout_editor_absoluteX="14dp"
-        tools:layout_editor_absoluteY="55dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

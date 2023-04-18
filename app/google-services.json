@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "107470707041",
+    "project_id": "przepisomat-39ba5",
+    "storage_bucket": "przepisomat-39ba5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107470707041:android:1892e6a13349464b248d20",
+        "android_client_info": {
+          "package_name": "com.teampwr.przepisomat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107470707041-o2pcd644t8rfu7d2ofjem9gpmhhn6cds.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.teampwr.przepisomat",
+            "certificate_hash": "1891670b43d98796cba6017eb62bf2e408763be5"
+          }
+        },
+        {
+          "client_id": "107470707041-gamok8nojb0jn62j103f84532fjhtjbh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmAuGKuKl_04mwZ62IKRWUJnCJkSa27J4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107470707041-gamok8nojb0jn62j103f84532fjhtjbh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

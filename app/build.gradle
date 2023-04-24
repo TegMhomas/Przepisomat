@@ -53,4 +53,5 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.20")
     implementation 'com.google.firebase:firebase-auth:21.2.0'
     implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0'
 }

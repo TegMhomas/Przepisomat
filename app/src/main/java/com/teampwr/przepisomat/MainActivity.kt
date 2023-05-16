@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 import com.teampwr.przepisomat.databinding.ActivityMainBinding
 import com.teampwr.przepisomat.model.Recipe
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.withTimeout
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,7 +17,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: RecipeAdapter
     private lateinit var layoutManager: LinearLayoutManager
-
+    private val db = FirebaseFirestore.getInstance()
+    private val przepisyRef = db.collection("przepisy")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -24,30 +28,33 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycler_view)
         layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
+        val recipes = ArrayList<Recipe>()
 
-        val recipes = listOf(
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 1", ""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 2",""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 3",""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 4",""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 5",""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 6",""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 7",""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 8",""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 9",""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 10",""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 11",""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 12",""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 13",""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 14",""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 15",""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 16",""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 17",""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 18",""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 19",""),
-            Recipe(R.drawable.baseline_fastfood_24, "Recipe 20","")
-        )
 
+        przepisyRef.get()
+            .addOnSuccessListener { documents ->
+
+                for (document in documents) {
+                    val zdjecie = document.getLong("zdjecie")
+                    val nazwa = document.getString("nazwa")
+                    val kategoria = document.getString("kategoria")
+                    val opis = document.getString("opis")
+                    val iloscLajkow = document.getLong("ilosc_lajkow")
+                    System.out.println("KEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKWWWWWWWWWWWWWWWWWWW " + nazwa)
+                    recipes.add(Recipe(R.drawable.baseline_fastfood_24, nazwa, opis, iloscLajkow, kategoria))
+
+
+                }
+            }
+            .addOnFailureListener { exception ->
+
+            }
+
+
+        while (recipes.isEmpty())
+        {
+            System.out.println("PUSTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + recipes.size)
+        }
 
 
         adapter = RecipeAdapter(recipes)
@@ -65,4 +72,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
+
 }

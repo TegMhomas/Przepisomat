@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.teampwr.przepisomat.R
 import com.teampwr.przepisomat.RecipeAdapter
@@ -24,8 +25,8 @@ class DashboardFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: RecipeAdapter
     private lateinit var layoutManager: LinearLayoutManager
-    private val db = FirebaseFirestore.getInstance()
-    private val przepisyRef = db.collection("przepisy")
+    val database: FirebaseDatabase = FirebaseDatabase.getInstance("https://przepisomat-39ba5-default-rtdb.europe-west1.firebasedatabase.app")
+    val recipesRef: DatabaseReference = database.getReference("recipes")
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!

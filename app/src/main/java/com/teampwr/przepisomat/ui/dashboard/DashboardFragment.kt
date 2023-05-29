@@ -2,9 +2,12 @@ package com.teampwr.przepisomat.ui.dashboard
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -22,45 +25,61 @@ import com.teampwr.przepisomat.RecipeDetailsActivity
 import com.teampwr.przepisomat.RecipesActivity
 import com.teampwr.przepisomat.databinding.FragmentDashboardBinding
 import com.teampwr.przepisomat.model.Recipe
+import java.util.*
 
 class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
+    private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: RecipeAdapter
     private lateinit var layoutManager: LinearLayoutManager
-    val database: FirebaseDatabase = FirebaseDatabase.getInstance("https://przepisomat-39ba5-default-rtdb.europe-west1.firebasedatabase.app")
-    val recipesRef: DatabaseReference = database.getReference("recipes")
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private lateinit var searchEditText: EditText
+    private lateinit var searchButton: Button
+
+    private val database: FirebaseDatabase by lazy {
+        FirebaseDatabase.getInstance("https://przepisomat-39ba5-default-rtdb.europe-west1.firebasedatabase.app")
+    }
+    private val recipesRef: DatabaseReference by lazy {
+        database.getReference("recipes")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
-
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-//        val textView: TextView = binding.textDashboard
-//        dashboardViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
+        searchEditText = binding.searchEditText
+        searchButton = binding.searchButton
 
         recyclerView = binding.recyclerView
-        layoutManager = LinearLayoutManager(context)
+        layoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = layoutManager
-       // val recipe = Recipe(0,"Nazwa przepisu", "Opis przepisu", 2, "test" )
-       // val recipeRef: DatabaseReference = recipesRef.push()
-        //recipeRef.setValue(recipe)
-
-        val recipes = ArrayList<Recipe>()
 
         val recipesList: MutableList<Recipe> = mutableListOf()
+
+        adapter = RecipeAdapter(recipesList)
+        adapter.setOnItemClickListener(object : RecipeAdapter.OnItemClickListener {
+            override fun onItemClick(recipe: Recipe) {
+                val intent = Intent(requireContext(), RecipeDetailsActivity::class.java)
+                intent.putExtra("recipeName", recipe.name)
+                intent.putExtra("recipeCategory", recipe.category)
+                intent.putExtra("recipeDescription", recipe.description)
+                intent.putExtra("recipeImage", recipe.image)
+                intent.putExtra("likes", recipe.likes)
+                startActivity(intent)
+            }
+        })
+        recyclerView.adapter = adapter
+        recyclerView.isNestedScrollingEnabled = true
+
+        searchButton.setOnClickListener {
+            val searchQuery = searchEditText.text.toString().trim()
+            searchRecipes(searchQuery)
+        }
 
         recipesRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -70,37 +89,33 @@ class DashboardFragment : Fragment() {
                     recipe?.let {
                         recipesList.add(it)
                     }
-                    println("ROZMIAR: " + recipesList.size)
                 }
-                adapter = RecipeAdapter(recipesList)
-
-                adapter.setOnItemClickListener(object : RecipeAdapter.OnItemClickListener {
-                    override fun onItemClick(recipe: Recipe) {
-                        val intent = Intent(context, RecipeDetailsActivity::class.java)
-                        intent.putExtra("recipeName", recipe.name)
-                        intent.putExtra("recipeCategory", recipe.category)
-                        intent.putExtra("recipeDescription", recipe.description)
-                        intent.putExtra("recipeImage", recipe.image)
-                        intent.putExtra("likes", recipe.likes)
-                        startActivity(intent)
-                    }
-                })
-                recyclerView.adapter = adapter
-                recyclerView.isNestedScrollingEnabled = true
+                adapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                println("ERROR: " + databaseError)
+                Log.e("DashboardFragment", "Error fetching recipes: ${databaseError.message}")
             }
         })
 
-
-        println("ROZMIAR: " + recipesList.size)
         return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun searchRecipes(query: String) {
+        val lowercaseQuery = query.toLowerCase(Locale.getDefault())
+        val filteredList = mutableListOf<Recipe>()
+
+        for (recipe in adapter.getRecipes()) {
+            if (recipe.name?.toLowerCase(Locale.getDefault())?.contains(lowercaseQuery) == true) {
+                filteredList.add(recipe)
+            }
+        }
+
+        adapter.filterRecipes(filteredList)
     }
 }

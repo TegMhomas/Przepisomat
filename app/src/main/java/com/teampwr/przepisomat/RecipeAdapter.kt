@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.teampwr.przepisomat.model.Recipe
 
-class RecipeAdapter(private val recipes: List<Recipe>) :
+class RecipeAdapter(private val recipes: MutableList<Recipe>) :
     RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     interface OnItemClickListener {
@@ -43,6 +43,15 @@ class RecipeAdapter(private val recipes: List<Recipe>) :
 
     override fun getItemCount(): Int {
         return recipes.size
+    }
+    fun getRecipes(): List<Recipe> {
+        return recipes
+    }
+
+    fun filterRecipes(filteredList: List<Recipe>) {
+        recipes.clear()
+        recipes.addAll(filteredList)
+        notifyDataSetChanged()
     }
 
     private var onItemClickListener: OnItemClickListener? = null

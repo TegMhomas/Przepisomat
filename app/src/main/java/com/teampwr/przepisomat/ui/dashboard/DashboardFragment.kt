@@ -10,7 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.teampwr.przepisomat.R
 import com.teampwr.przepisomat.RecipeAdapter
@@ -50,39 +54,44 @@ class DashboardFragment : Fragment() {
         recyclerView = binding.recyclerView
         layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
+        val recipe = Recipe(0,"Nazwa przepisu", "Opis przepisu", 2, "test" )
+        val recipeRef: DatabaseReference = recipesRef.push()
+        recipeRef.setValue(recipe)
+
         val recipes = ArrayList<Recipe>()
 
+        val recipesList: MutableList<Recipe> = mutableListOf()
 
-        przepisyRef.get()
-                .addOnSuccessListener { documents ->
-
-                    for (document in documents) {
-                        val zdjecie = document.getLong("zdjecie")
-                        val nazwa = document.getString("nazwa")
-                        val kategoria = document.getString("kategoria")
-                        val opis = document.getString("opis")
-                        val iloscLajkow = document.getLong("ilosc_lajkow")
-                        System.out.println("KEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKWWWWWWWWWWWWWWWWWWW " + nazwa)
-                        recipes.add(Recipe(R.drawable.baseline_fastfood_24, nazwa, opis, iloscLajkow, kategoria))
-
-
+        recipesRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                recipesList.clear()
+                for (snapshot in dataSnapshot.children) {
+                    val recipe = snapshot.getValue(Recipe::class.java)
+                    recipe?.let {
+                        recipesList.add(it)
                     }
+                    println("ROZMIAR: " + recipesList.size)
                 }
-                .addOnFailureListener { exception ->
+                adapter = RecipeAdapter(recipesList)
 
-                }
-        adapter = RecipeAdapter(recipes)
+                adapter.setOnItemClickListener(object : RecipeAdapter.OnItemClickListener {
+                    override fun onItemClick(recipe: Recipe) {
+                        val intent = Intent(context, RecipeDetailsActivity::class.java)
+                        intent.putExtra("recipeName", recipe.name)
+                        startActivity(intent)
+                    }
+                })
+                recyclerView.adapter = adapter
+                recyclerView.isNestedScrollingEnabled = true
+            }
 
-        adapter.setOnItemClickListener(object : RecipeAdapter.OnItemClickListener {
-            override fun onItemClick(recipe: Recipe) {
-                val intent = Intent(context, RecipeDetailsActivity::class.java)
-                intent.putExtra("recipeName", recipe.name)
-                startActivity(intent)
+            override fun onCancelled(databaseError: DatabaseError) {
+                println("ERROR: " + databaseError)
             }
         })
-        recyclerView.adapter = adapter
-        recyclerView.isNestedScrollingEnabled = true
 
+
+        println("ROZMIAR: " + recipesList.size)
         return root
     }
 

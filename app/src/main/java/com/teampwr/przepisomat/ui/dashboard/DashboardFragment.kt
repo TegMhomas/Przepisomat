@@ -1,5 +1,6 @@
 package com.teampwr.przepisomat.ui.dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.teampwr.przepisomat.R
 import com.teampwr.przepisomat.RecipeAdapter
+import com.teampwr.przepisomat.RecipeDetailsActivity
 import com.teampwr.przepisomat.RecipesActivity
 import com.teampwr.przepisomat.databinding.FragmentDashboardBinding
 import com.teampwr.przepisomat.model.Recipe
@@ -68,6 +70,17 @@ class DashboardFragment : Fragment() {
                 .addOnFailureListener { exception ->
 
                 }
+        adapter = RecipeAdapter(recipes)
+
+        adapter.setOnItemClickListener(object : RecipeAdapter.OnItemClickListener {
+            override fun onItemClick(recipe: Recipe) {
+                val intent = Intent(context, RecipeDetailsActivity::class.java)
+                intent.putExtra("recipeName", recipe.name)
+                startActivity(intent)
+            }
+        })
+        recyclerView.adapter = adapter
+        recyclerView.isNestedScrollingEnabled = true
 
         return root
     }

@@ -18,10 +18,12 @@ class RecipeAdapter(private val recipes: List<Recipe>) :
     inner class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val recipeImage: ImageView = itemView.findViewById(R.id.recipe_image)
         val recipeName: TextView = itemView.findViewById(R.id.recipe_name)
+        val recipeCategory: TextView = itemView.findViewById(R.id.recipe_category)
 
         fun bind(recipe: Recipe) {
             recipeImage.setImageResource(recipe.image)
             recipeName.text = recipe.name
+            recipeCategory.text = recipe.category
 
             itemView.setOnClickListener {
                 onItemClickListener?.onItemClick(recipe)
@@ -30,8 +32,7 @@ class RecipeAdapter(private val recipes: List<Recipe>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
-        val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_recipe, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_recipe, parent, false)
         return RecipeViewHolder(itemView)
     }
 

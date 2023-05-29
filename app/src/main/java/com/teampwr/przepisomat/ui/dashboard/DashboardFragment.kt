@@ -46,17 +46,17 @@ class DashboardFragment : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+//        val textView: TextView = binding.textDashboard
+//        dashboardViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
 
         recyclerView = binding.recyclerView
         layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
-        val recipe = Recipe(0,"Nazwa przepisu", "Opis przepisu", 2, "test" )
-        val recipeRef: DatabaseReference = recipesRef.push()
-        recipeRef.setValue(recipe)
+       // val recipe = Recipe(0,"Nazwa przepisu", "Opis przepisu", 2, "test" )
+       // val recipeRef: DatabaseReference = recipesRef.push()
+        //recipeRef.setValue(recipe)
 
         val recipes = ArrayList<Recipe>()
 

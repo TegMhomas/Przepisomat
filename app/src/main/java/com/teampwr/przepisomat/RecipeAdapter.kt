@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.teampwr.przepisomat.model.Recipe
 
 class RecipeAdapter(private val recipes: List<Recipe>) :
@@ -21,7 +22,7 @@ class RecipeAdapter(private val recipes: List<Recipe>) :
         val recipeCategory: TextView = itemView.findViewById(R.id.recipe_category)
 
         fun bind(recipe: Recipe) {
-            recipeImage.setImageResource(recipe.image)
+            Picasso.get().load(recipe.image).into(recipeImage)
             recipeName.text = recipe.name
             recipeCategory.text = recipe.category
 

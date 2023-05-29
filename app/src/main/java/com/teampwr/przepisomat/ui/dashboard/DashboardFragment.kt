@@ -78,6 +78,10 @@ class DashboardFragment : Fragment() {
                     override fun onItemClick(recipe: Recipe) {
                         val intent = Intent(context, RecipeDetailsActivity::class.java)
                         intent.putExtra("recipeName", recipe.name)
+                        intent.putExtra("recipeCategory", recipe.category)
+                        intent.putExtra("recipeDescription", recipe.description)
+                        intent.putExtra("recipeImage", recipe.image)
+                        intent.putExtra("likes", recipe.likes)
                         startActivity(intent)
                     }
                 })

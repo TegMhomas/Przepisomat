@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                     val opis = document.getString("opis")
                     val iloscLajkow = document.getLong("ilosc_lajkow")
                     System.out.println("KEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKWWWWWWWWWWWWWWWWWWW " + nazwa)
-                    recipes.add(Recipe(R.drawable.baseline_fastfood_24, nazwa, opis, iloscLajkow, kategoria))
+                    //recipes.add(Recipe(R.drawable.baseline_fastfood_24, nazwa, opis, iloscLajkow, kategoria))
 
 
                 }

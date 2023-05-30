@@ -58,7 +58,6 @@ class DashboardFragment : Fragment() {
         recyclerView = binding.recyclerView
         layoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = layoutManager
-
         val recipesList: MutableList<Recipe> = mutableListOf()
 
         adapter = RecipeAdapter(recipesList)

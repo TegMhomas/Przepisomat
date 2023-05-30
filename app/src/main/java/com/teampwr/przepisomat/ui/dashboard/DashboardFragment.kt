@@ -36,7 +36,7 @@ class DashboardFragment : Fragment() {
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var searchEditText: EditText
     private lateinit var searchButton: Button
-
+    val recipesListbackup: MutableList<Recipe> = mutableListOf()
     private val database: FirebaseDatabase by lazy {
         FirebaseDatabase.getInstance("https://przepisomat-39ba5-default-rtdb.europe-west1.firebasedatabase.app")
     }
@@ -77,7 +77,15 @@ class DashboardFragment : Fragment() {
 
         searchButton.setOnClickListener {
             val searchQuery = searchEditText.text.toString().trim()
-            searchRecipes(searchQuery)
+            if(searchQuery.equals(""))
+            {
+                adapter.filterRecipes(recipesListbackup)
+            }
+            else
+            {
+                searchRecipes(searchQuery)
+            }
+
         }
 
         recipesRef.addValueEventListener(object : ValueEventListener {
@@ -87,6 +95,7 @@ class DashboardFragment : Fragment() {
                     val recipe = snapshot.getValue(Recipe::class.java)
                     recipe?.let {
                         recipesList.add(it)
+                        recipesListbackup.add(it)
                     }
                 }
                 adapter.notifyDataSetChanged()
@@ -109,7 +118,7 @@ class DashboardFragment : Fragment() {
         val lowercaseQuery = query.toLowerCase(Locale.getDefault())
         val filteredList = mutableListOf<Recipe>()
 
-        for (recipe in adapter.getRecipes()) {
+        for (recipe in recipesListbackup) {
             if (recipe.name?.toLowerCase(Locale.getDefault())?.contains(lowercaseQuery) == true) {
                 filteredList.add(recipe)
             }

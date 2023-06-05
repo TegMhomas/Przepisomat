@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name"> </string>
+    <string name="app_name">Przepisomat</string>
     <string name="title_activity_recipies"> </string>
-    <string name="title_home"> </string>
-    <string name="title_dashboard"> </string>
-    <string name="title_notifications"> </string>
+    <string name="title_home">Profil</string>
+    <string name="title_dashboard">Przepisy</string>
+    <string name="title_notifications">Opcje</string>
     <string name="title_activity_recipes"> </string>
     <string name="email">Email</string>
     <string name="login">Zaloguj</string>

@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.teampwr.przepisomat.ui.home.HomeFragment"
-        android:label="Profil"
+        android:label=" "
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.teampwr.przepisomat.ui.dashboard.DashboardFragment"
-        android:label="Przepisy"
+        android:label=" "
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.teampwr.przepisomat.ui.notifications.NotificationsFragment"
-        android:label="Opcje"
+        android:label=" "
         tools:layout="@layout/fragment_notifications" />
 </navigation>

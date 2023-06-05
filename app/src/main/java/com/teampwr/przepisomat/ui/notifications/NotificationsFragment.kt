@@ -56,6 +56,12 @@ class NotificationsFragment : Fragment() {
             requireActivity().recreate()
         })
 
+        binding.button4.setOnClickListener({
+            LanguageManager.setSelectedLanguage(requireContext(), "default")
+            LanguageManager.applyLanguage(requireContext())
+            requireActivity().recreate()
+        })
+
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
             val uid = user.uid

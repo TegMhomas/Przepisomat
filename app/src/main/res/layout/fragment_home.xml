@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -7,11 +8,15 @@
     <ImageView
         android:id="@+id/app_logo_image_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="Logo aplikacji"
-        android:src="@drawable/przepisomat_logo"
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
         android:adjustViewBounds="true"
-        android:scaleType="fitStart" />
+        android:contentDescription="Logo aplikacji"
+        android:scaleType="fitStart"
+        android:src="@drawable/przepisomat_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/user_email_text_view"
@@ -19,45 +24,62 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/app_logo_image_view"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="30dp"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_logo_image_view"
         tools:text="user@example.com" />
 
     <EditText
         android:id="@+id/old_password_edit_text"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/user_email_text_view"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="50dp"
         android:hint="@string/old_password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_email_text_view" />
 
     <EditText
         android:id="@+id/new_password_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/old_password_edit_text"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:hint="@string/new_password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirm_password_edit_text" />
 
     <EditText
         android:id="@+id/confirm_password_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/new_password_edit_text"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:hint="@string/new_password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/old_password_edit_text" />
 
     <Button
         android:id="@+id/change_password_button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/confirm_password_edit_text"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="@string/change_password" />
+        android:layout_marginStart="138dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="137dp"
+        android:text="@string/change_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_password_edit_text" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

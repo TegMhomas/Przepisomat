@@ -18,4 +18,5 @@
     <string name="old_account">Masz już konto? Zaloguj się!</string>
     <string name="logout">Wyloguj</string>
     <string name="name_search">Wyszukaj po nazwie</string>
+    <string name="language">Język</string>
 </resources>

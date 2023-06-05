@@ -19,4 +19,5 @@
     <string name="logout">Logout</string>
     <string name="name_search">Search by name</string>
     <string name="r_password">Repeat Password</string>
+    <string name="language">Language</string>
 </resources>

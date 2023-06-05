@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Przepisomat</string>
+    <string name="title_activity_recipies">RecipesActivity</string>
+    <string name="title_home">Profile</string>
+    <string name="title_dashboard">Recipies</string>
+    <string name="title_notifications">Options</string>
+    <string name="title_activity_recipes">RecipesActivity</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="password">Password</string>
+    <string name="change_password">Change Password</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="search">Search</string>
+    <string name="new_account">Don\'t have account? Register!</string>
+    <string name="old_account">Already registered? Log in!</string>
+    <string name="logout">Logout</string>
+    <string name="name_search">Search by name</string>
+    <string name="r_password">Repeat Password</string>
+</resources>

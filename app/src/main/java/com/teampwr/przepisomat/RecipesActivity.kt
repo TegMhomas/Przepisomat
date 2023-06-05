@@ -1,13 +1,19 @@
 package com.teampwr.przepisomat
 
+import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.teampwr.przepisomat.databinding.ActivityRecipesBinding
+import java.util.*
+
 
 class RecipesActivity : AppCompatActivity() {
 
@@ -18,7 +24,7 @@ class RecipesActivity : AppCompatActivity() {
 
         binding = ActivityRecipesBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        LanguageManager.getSelectedLanguage(this)
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_recipes)
@@ -32,4 +38,5 @@ class RecipesActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
+
 }

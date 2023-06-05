@@ -15,7 +15,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.teampwr.przepisomat.LanguageManager
 import com.teampwr.przepisomat.LoginActivity
+import com.teampwr.przepisomat.MainActivity
+import com.teampwr.przepisomat.RecipesActivity
 import com.teampwr.przepisomat.databinding.FragmentNotificationsBinding
+import kotlinx.coroutines.NonDisposableHandle.parent
 
 class NotificationsFragment : Fragment() {
 
@@ -26,7 +29,6 @@ class NotificationsFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var languagePreferences: SharedPreferences
-    private lateinit var languageAdapter: ArrayAdapter<String>
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,30 +47,14 @@ class NotificationsFragment : Fragment() {
             startActivity(intent)
             requireActivity().finish()
         })
-        val languages = arrayOf("Polski", "English") // Lista dostępnych języków
-        languageAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, languages)
-        languageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.languageSpinner.adapter = languageAdapter
-
+        LanguageManager.applyLanguage(requireContext())
         languagePreferences = requireContext().getSharedPreferences("LanguagePrefs", Context.MODE_PRIVATE)
-        val savedLanguage = languagePreferences.getString("language", null)
-        if (savedLanguage != null) {
 
-            val spinnerPosition = languageAdapter.getPosition(savedLanguage)
-            binding.languageSpinner.setSelection(spinnerPosition)
-        }
-
-        binding.languageSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val selectedLanguage = parent.getItemAtPosition(position).toString()
-                saveLanguage(selectedLanguage)
-                setAppLanguage(selectedLanguage)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-        }
+        binding.button3.setOnClickListener({
+            LanguageManager.setSelectedLanguage(requireContext(), "en")
+            LanguageManager.applyLanguage(requireContext())
+            requireActivity().recreate()
+        })
 
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
@@ -89,7 +75,7 @@ class NotificationsFragment : Fragment() {
     private fun setAppLanguage(language: String) {
         LanguageManager.setSelectedLanguage(requireContext(), language)
         LanguageManager.applyLanguage(requireContext())
-        requireActivity().recreate()
+
     }
     override fun onDestroyView() {
         super.onDestroyView()

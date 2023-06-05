@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.teampwr.przepisomat.LanguageManager
 import com.teampwr.przepisomat.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -33,7 +34,7 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        context?.let { LanguageManager.getSelectedLanguage(it.applicationContext) }
         userEmailTextView = binding.userEmailTextView
         changePasswordButton = binding.changePasswordButton
 

@@ -69,6 +69,10 @@ class DashboardFragment : Fragment() {
                 intent.putExtra("recipeDescription", recipe.description)
                 intent.putExtra("recipeImage", recipe.image)
                 intent.putExtra("likes", recipe.likes)
+                intent.putExtra("en_name", recipe.en_name)
+                intent.putExtra("en_category", recipe.en_category)
+                intent.putExtra("en_description", recipe.en_description)
+                intent.putExtra("movie_url", recipe.movie_url)
                 startActivity(intent)
             }
         })

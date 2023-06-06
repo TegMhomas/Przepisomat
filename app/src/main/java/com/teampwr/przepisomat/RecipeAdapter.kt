@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.teampwr.przepisomat.model.Recipe
 
+
 class RecipeAdapter(private val recipes: MutableList<Recipe>) :
     RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
@@ -23,8 +24,17 @@ class RecipeAdapter(private val recipes: MutableList<Recipe>) :
 
         fun bind(recipe: Recipe) {
             Picasso.get().load(recipe.image).into(recipeImage)
-            recipeName.text = recipe.name
-            recipeCategory.text = recipe.category
+            if(LanguageManager.getSelectedLanguage(itemView.context).equals("en") && recipe.name.equals("Pierogi"))
+            {
+                recipeName.text = recipe.en_name
+                recipeCategory.text = recipe.en_category
+            }
+            else
+            {
+                recipeName.text = recipe.name
+                recipeCategory.text = recipe.category
+            }
+
 
             itemView.setOnClickListener {
                 onItemClickListener?.onItemClick(recipe)

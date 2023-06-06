@@ -3,6 +3,10 @@ package com.teampwr.przepisomat.ui.notifications
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Matrix
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,9 +20,15 @@ import com.google.firebase.auth.FirebaseAuth
 import com.teampwr.przepisomat.LanguageManager
 import com.teampwr.przepisomat.LoginActivity
 import com.teampwr.przepisomat.MainActivity
+import com.teampwr.przepisomat.R
 import com.teampwr.przepisomat.RecipesActivity
 import com.teampwr.przepisomat.databinding.FragmentNotificationsBinding
 import kotlinx.coroutines.NonDisposableHandle.parent
+import pl.droidsonroids.gif.GifDrawable
+import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.io.InputStream
+
 
 class NotificationsFragment : Fragment() {
 
@@ -61,6 +71,22 @@ class NotificationsFragment : Fragment() {
             LanguageManager.applyLanguage(requireContext())
             requireActivity().recreate()
         })
+        val inputStream: InputStream = resources.openRawResource(R.raw.pizza)
+        val outputStream = ByteArrayOutputStream()
+        val buffer = ByteArray(1024)
+        var bytesRead: Int
+
+        try {
+            while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+                outputStream.write(buffer, 0, bytesRead)
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        val byteArray = outputStream.toByteArray()
+        val gifDrawable = GifDrawable(byteArray)
+        binding.imageView2.setImageDrawable(gifDrawable)
+
 
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {

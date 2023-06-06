@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
+        android:descendantFocusability="beforeDescendants"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <RelativeLayout
@@ -17,11 +20,11 @@
 
             <ImageView
                 android:id="@+id/recipe_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
-                android:src="@drawable/baseline_fastfood_24"/>
+                android:src="@drawable/baseline_fastfood_24" />
 
             <TextView
                 android:id="@+id/recipe_name"
@@ -45,9 +48,19 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
+                android:paddingBottom="10dp"
                 android:text="Recipe Description"
-                android:textSize="18sp"
-                android:paddingBottom="35dp"/>
+                android:textSize="18sp" />
+
+            <VideoView
+                android:id="@+id/video_view"
+                android:layout_width="match_parent"
+                android:layout_height="278dp"
+                android:layout_below="@id/recipe_description"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:visibility="visible" />
 
         </RelativeLayout>
 
@@ -61,13 +74,6 @@
         android:layout_gravity="bottom|end"
         android:src="@drawable/like" />
 
-    <VideoView
-        android:id="@+id/video_view"
-        android:layout_width="match_parent"
-        android:layout_height="278dp"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:visibility="visible" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

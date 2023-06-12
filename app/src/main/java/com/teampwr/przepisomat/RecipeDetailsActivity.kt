@@ -15,7 +15,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_details)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        var start=0
+        var start = 0
         val recipeName = intent.getStringExtra("recipeName")
         val recipeCategory = intent.getStringExtra("recipeCategory")
 //        val likes = intent.getStringExtra("likes")
@@ -30,31 +30,24 @@ class RecipeDetailsActivity : AppCompatActivity() {
         val recipeImageView: ImageView = findViewById(R.id.recipe_image)
         val videoView = findViewById<VideoView>(R.id.video_view)
         val mediaPlayer = MediaPlayer.create(this, R.raw.like)
-        if(recipeName.equals("Pierogi"))
-        {
+        if (recipeName.equals("Pierogi")) {
             videoView.setVideoURI(Uri.parse(movie_url))
             videoView.setOnClickListener({
-                if(start==0)
-                {
+                if (start == 0) {
                     videoView.start()
-                    start=1
-                }
-                else
-                {
+                    start = 1
+                } else {
                     videoView.pause()
-                    start=0
+                    start = 0
                 }
 
             })
         }
 
-        if(LanguageManager.getSelectedLanguage(this).equals("en"))
-        {
+        if (LanguageManager.getSelectedLanguage(this).equals("en")) {
             recipeNameTextView.text = en_name
             recipeDescriptionTextView.text = en_description
-        }
-        else
-        {
+        } else {
             recipeNameTextView.text = recipeName
             recipeDescriptionTextView.text = recipeDescription
         }
